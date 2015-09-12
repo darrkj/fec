@@ -1,0 +1,90 @@
+---
+title: "Do People Donate Positive Amounts of Money"
+author: "Kenny Darrell"
+date: "August 29, 2015"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## Scientific Method
+
+If we are going to call what we do data science, it needs to adhere to the tennents of [Science](https://en.wikipedia.org/wiki/Scientific_method)
+. The method I am going to follow comes from [here](http://www.sciencebuddies.org/science-fair-projects/project_scientific_method.shtml).
+
+From the header above you can see who did this experiment, when and what they were trying to uncover. It could be argued that this could take additional amounts of time, but that assumes that you only do it once. If you follow this method you should in fact only have to do it once, it should also be very easy to redo in the future as you know exactly what you need to redo and should be set up to do it easily. The problem is though that without this type of setup, or something similar people on a client may do this 3 to 5 times, do recheck it you redo it again, the results are often no apples to appels either. This is something that is very easy document. In the csec project I never had to tell Matt or Megan what all I did, I gave them about ten of these and they wrote the entire project report while I was on site at Springfield.
+
+
+
+
+## Ask a Question
+## Do People donate logical (greater than zero) value of money to presidential candiates?
+
+
+After doing some research of how you could determine this type of thing I found the [FEC](http://www.fec.gov/finance/disclosure/ftpdet.shtml) has all of this data.
+
+## Do Background Research
+
+The individual contributions file contains each contribution from an 
+individual to a federal committee if the contribution was at least $200.
+
+```{r cars}
+options(stringsAsFactors = FALSE)
+
+indiv <- read.csv('2016/itcont.txt', sep = '|', header = F)
+
+names(indiv) <- c('CMTE_ID', 'AMNDT_IND', 'RPT_TP', 'TRANSACTION_PGI',
+               'IMAGE_NUM', 'TRANSACTION_TP', 'ENTITY_TP', 'NAME', 
+               'CITY', 'STATE', 'ZIP_CODE', 'EMPLOYER', 'OCCUPATION',
+               'TRANSACTION_DT', 'TRANSACTION_AMT', 'OTHER_ID',
+               'TRAN_ID', 'FILE_NUM', 'MEMO_CD', 'MEMO_TEXT', 'SUB_ID')
+
+```
+
+Thus they claim not to have cases where it is less than $200. This may or may not be true, but either way is still a good example.
+
+
+## Construct a Hypothesis
+## People only donate values greater than 0 to presidentail candidates.
+
+## Assumptions
+
+This is the only data that exists 
+This data is valid
+
+
+
+
+
+## Test Your Hypothesis by Doing an Experiment
+
+This would be an easy check
+
+```{r}
+min(indiv$TRANSACTION_AMT)
+```
+
+But the first thing to note is that my assumption of this data was incorrect.
+
+The AMNDT_IND field tells me if it is either
+N -> NEW
+A -> Ammendment
+T -> Termination
+
+Terminations would be an interesting thing to look at in the future.
+
+But for now lets remove them.
+
+```{r}
+
+```
+
+Analyze Your Data and Draw a Conclusion
+Communicate Your Results
+
+
+
+
+

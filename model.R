@@ -8,5 +8,4 @@ library(dplyr)
 indiv %>% 
   select(CMTE_ID, STATE, NAME, TRANSACTION_DT, TRANSACTION_AMT) %>%
   
-
   

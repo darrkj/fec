@@ -1,11 +1,41 @@
 options(stringsAsFactors = FALSE)
-
+library(dplyr)
 # Data comes from
 # http://www.fec.gov/finance/disclosure/ftpdet.shtml
+
+function(str) {
+str %>%
+    paste0('http://www.fec.gov/finance/disclosure/metadata/', ., '_header_file.csv') %>%
+    read.csv()
+
+CCL_NAMES <- names(read.csv())
+
+list.files('data') %>%
+  grep('ccl', ., value = T) %>%
+  grep('txt', ., value = T) %>%
+  paste0('data/', .) %>%
+  lapply(read.csv, sep = '|', header = F) %>%
+  bind_rows %>%
+  `names<-`(CCL_NAMES) -> link
+
+}
+ccl_header_file
+cm_header_file.csv
+cn_header_file
+oth_header_file
+pas2_header_file
+indiv_header_file
+oppexp_header_file
 
 
 # The individual contributions file contains each contribution from an 
 # individual to a federal committee if the contribution was at least $200.
+list.files('data') %>%
+  grep('indiv', ., value = T) %>%
+  grep('txt', ., value = T) %>%
+  paste0('data/', .) -> files
+
+indiv <- lapply()
 indiv <- read.csv('2016/itcont.txt', sep = '|', header = F)
 
 names(indiv) <- c('CMTE_ID', 'AMNDT_IND', 'RPT_TP', 'TRANSACTION_PGI',
@@ -72,12 +102,15 @@ names(oppexp) <- c('CMTE_ID', 'AMNDT_IND', 'RPT_TP', 'RPT_YR',
                'TRAN_ID', 'BACK_REF_TRAN_ID')
 
 # This file contains one record for each candidate to committee linakge.
+CCL_NAMES <- names(read.csv('http://www.fec.gov/finance/disclosure/metadata/ccl_header_file.csv'))
 
-link <- read.csv('2016/ccl.txt', sep = '|', header = F)
-
-
-names(link) <- c('CAND_ID', 'CAND_ELECTION_YR', 'FEC_ELECTION_YR',
-               'CMTE_ID', 'CMTE_TP', 'CMTE_DSGN', 'LINKAGE_ID')
+list.files('data') %>%
+  grep('ccl', ., value = T) %>%
+  grep('txt', ., value = T) %>%
+  paste0('data/', .) %>%
+  lapply(read.csv, sep = '|', header = F) %>%
+  bind_rows %>%
+  `names<-`(CCL_NAMES) -> link
 
 # This file contains one record for each committee registered with the Federal 
 # Election Commission. This includes federal political action committees and 
